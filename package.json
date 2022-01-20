@@ -4,8 +4,11 @@
   "description": "my test application",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "crypto": "^1.0.1",
     "express": "^4.17.2",
     "mysql2": "^2.3.3",
+    "node-cron": "^3.0.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.13.0"

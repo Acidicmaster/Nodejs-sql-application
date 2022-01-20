@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,8 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(Post, { foreignKey: 'userId', as: 'posts' });
       this.hasMany(like, { foreignKey: 'userId', as: 'likes' });
-     // this.hasMany(follow, { foreignKey: 'userId', as: 'followerId' });
-     // this.hasMany(follow, { foreignKey: 'userId', as: 'follows' });
+   
     }
     toJSON() {
       return { ...this.get(), id: undefined }
@@ -63,6 +63,16 @@ module.exports = (sequelize, DataTypes) => {
      
     }
   }, {
+    freezeTableName: true,
+    instanceMethods: {
+        generateHash(password) {
+            return bcrypt.hash(password, bcrypt.genSaltSync(8));
+        },
+        validPassword(password) {
+            return bcrypt.compare(password, this.password);
+        }
+    },
+  
     sequelize,
     modelName: 'User',
     tableName: 'users',
