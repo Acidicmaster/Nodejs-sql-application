@@ -1,10 +1,17 @@
 const express = require('express')
 
-const { sequelize, User, Post } = require('./models')
+
+const { sequelize} = require('./models')
 
 const app = express()
 app.use(express.json())
 
+//rouets
+const authRouter = require("./routes/auth");
+
+
+
+app.use("/api/auth", authRouter);
 
 app.listen({ port: 5000 }, async () => {
   console.log('Server up on http://localhost:5000')
